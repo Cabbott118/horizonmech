@@ -1,9 +1,16 @@
 import { useState, useEffect } from 'react';
+
+// Firebase
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../../utils/firebase';
+import { collection, addDoc } from 'firebase/firestore';
+
+// Utils
+import { auth, db } from '../../../utils/firebase';
+
+// React Router
 import { useNavigate } from 'react-router-dom';
-import { post } from '../../../lib/axios';
-import { POST_USER } from '../../../constants/api';
+
+import { sendEmail } from '../../../helpers/sendEmail';
 
 const useFirebaseSignup = (email, password) => {
   const [user, setUser] = useState(null);
@@ -31,8 +38,15 @@ const useFirebaseSignup = (email, password) => {
   const signup = () => {
     setIsLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
-      .then(({ user: { email, uid } }) => {
-        post(POST_USER, { email, uid });
+      .then(({ user: { email } }) => {
+        addDoc(collection(db, 'users'), {
+          uid: user.uid,
+          authProvider: 'local',
+          email,
+        });
+
+        sendEmail(email);
+
         navigate('/');
       })
       .catch((firebaseError) => {
