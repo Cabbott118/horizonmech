@@ -2,18 +2,20 @@ import { collection, addDoc } from 'firebase/firestore';
 
 import { db } from '../utils/firebase';
 
-export const sendEmail = async (email) => {
+export const sendEnrollmentEmail = async (email) => {
   try {
-    addDoc(collection(db, 'emails'), {
-      to: ['jansen.smith@horizonmech.co'],
-      cc: 'calebhaabbott94@gmail.com',
+    await addDoc(collection(db, 'emails'), {
+      to: [
+        // 'jansen.smith@horizonmech.co',
+        'calebhaabbott94@gmail.com',
+      ],
+      // cc: 'calebhaabbott94@gmail.com',
       message: {
         subject: `A new account has been registered: ${email}`,
-        html: `Email address: ${email}<br> If you're seeing this, I got the email to trigger after account creation!`,
+        html: `Email address: ${email}<br>If you're seeing this, I got the email to trigger after account creation!`,
       },
     });
 
-    // Update the document to trigger the email
     console.log(email);
     console.log('Email triggered successfully!');
   } catch (error) {

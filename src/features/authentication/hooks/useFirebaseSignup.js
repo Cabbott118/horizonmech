@@ -10,7 +10,7 @@ import { auth, db } from '../../../utils/firebase';
 // React Router
 import { useNavigate } from 'react-router-dom';
 
-import { sendEmail } from '../../../helpers/sendEmail';
+import { sendEnrollmentEmail } from '../../../helpers/sendEmail';
 
 const useFirebaseSignup = (email, password) => {
   const [user, setUser] = useState(null);
@@ -35,8 +35,9 @@ const useFirebaseSignup = (email, password) => {
     return () => unsubscribe();
   }, [user]);
 
-  const signup = () => {
+  const signup = async () => {
     setIsLoading(true);
+    auth.signOut();
     createUserWithEmailAndPassword(auth, email, password)
       .then(({ user: { email } }) => {
         addDoc(collection(db, 'users'), {
@@ -45,7 +46,7 @@ const useFirebaseSignup = (email, password) => {
           email,
         });
 
-        sendEmail(email);
+        sendEnrollmentEmail(email);
 
         navigate('/');
       })

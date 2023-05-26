@@ -28,6 +28,7 @@ const useFirebaseLogin = (email, password) => {
 
   const login = () => {
     setIsLoading(true);
+    auth.signOut();
     signInWithEmailAndPassword(auth, email, password)
       .then(({ user: { uid } }) => {
         navigate('/');
