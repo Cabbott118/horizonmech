@@ -2,15 +2,19 @@ import { useState, useEffect } from 'react';
 
 // Firebase
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { collection, addDoc } from 'firebase/firestore';
 
 // Utils
-import { auth, db } from '../../../utils/firebase';
+import { auth } from '../../../utils/firebase';
 
 // React Router
 import { useNavigate } from 'react-router-dom';
 
+// Helpers
 import { sendEnrollmentEmail } from '../../../helpers/sendEmail';
+
+// API
+import { post } from '../../../lib/axios';
+import { CREATE_USER } from '../../../constants/api';
 
 const useFirebaseSignup = (email, password) => {
   const [user, setUser] = useState(null);
@@ -37,17 +41,10 @@ const useFirebaseSignup = (email, password) => {
 
   const signup = async () => {
     setIsLoading(true);
-    auth.signOut();
     createUserWithEmailAndPassword(auth, email, password)
-      .then(({ user: { email } }) => {
-        addDoc(collection(db, 'users'), {
-          uid: user.uid,
-          authProvider: 'local',
-          email,
-        });
-
+      .then(({ user: { email, uid } }) => {
+        post(CREATE_USER, { email, uid });
         sendEnrollmentEmail(email);
-
         navigate('/');
       })
       .catch((firebaseError) => {
