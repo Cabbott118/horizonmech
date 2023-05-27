@@ -1,6 +1,6 @@
 // MUI
-import { Box } from '@mui/material';
-import { MyButton, MyTextField } from '../../../lib/mui';
+import { Box, Typography } from '@mui/material';
+import { MyAlert, MyButton, MyTextField } from '../../../lib/mui';
 
 const LoginForm = ({
   emailData,
@@ -8,6 +8,7 @@ const LoginForm = ({
   setEmail,
   setPassword,
   handleLogin,
+  error,
   isLoading,
 }) => {
   const handleSubmit = (e) => {
@@ -32,6 +33,9 @@ const LoginForm = ({
         value={passwordData}
         onChange={(e) => setPassword(e.target.value)}
       />
+      {error ? (
+        <MyAlert severity='error' text='Invalid email or password' />
+      ) : null}
       <MyButton fullWidth text='Login' loading={isLoading} />
     </Box>
   );

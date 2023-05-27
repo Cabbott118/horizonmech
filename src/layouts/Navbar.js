@@ -27,6 +27,10 @@ const Navbar = () => {
             name: 'Home',
             route: '/',
           },
+          {
+            name: 'Enroll',
+            route: '/enrollment',
+          },
         ]);
       } else {
         setNavLinks([

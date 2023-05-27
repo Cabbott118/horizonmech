@@ -1,26 +1,23 @@
-// MUI
-import { Box } from '@mui/material';
-import { MyAlert, MyButton, MyTextField } from '../../../lib/mui';
+import { MyButton, MyTextField } from '../../../../lib/mui';
+import { Box, Typography } from '@mui/material';
 
-const SignupForm = ({
+const ContractorForm = ({
   emailData,
   setEmail,
   passwordData,
   confirmPasswordData,
   setConfirmPassword,
   setPassword,
-  handleSignup,
-  error,
+  //   handleSignup,
   isLoading,
 }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleSignup();
+    // handleSignup();
   };
-
   return (
     <Box component='form' onSubmit={handleSubmit}>
-      <MyTextField
+      {/* <MyTextField
         id='email'
         label='Email Address'
         name='email'
@@ -43,12 +40,10 @@ const SignupForm = ({
         value={confirmPasswordData}
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
-      {error ? (
-        <MyAlert severity='error' text='Please choose another email' />
-      ) : null}
-      <MyButton fullWidth text='Sign Up' loading={isLoading} />
+      <MyButton fullWidth text='Continue' loading={isLoading} /> */}
+      <Typography variant='h6'>Placeholder for form</Typography>
     </Box>
   );
 };
 
-export default SignupForm;
+export default ContractorForm;

@@ -1,4 +1,10 @@
-import { Button, Container, TextField, Typography } from '@mui/material';
+import { Alert, Button, Container, TextField, Typography } from '@mui/material';
+
+export const MyAlert = ({ text, severity, ...rest }) => (
+  <Alert severity={severity} {...rest}>
+    {text}
+  </Alert>
+);
 
 export const MyButton = ({ text, loading, ...rest }) => (
   <Button

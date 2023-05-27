@@ -1,9 +1,7 @@
 import { useRouteError } from 'react-router-dom';
 
 // MUI
-import { useTheme } from '@mui/material';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
+import { Container, Typography, useTheme } from '@mui/material';
 
 const Error = () => {
   const theme = useTheme();
