@@ -14,6 +14,7 @@ const NormalHero = () => {
   const handleNavigationToContractorEnrollment = () => {
     navigate('/enrollment/contractor');
   };
+
   return (
     <Box>
       <Container
@@ -26,9 +27,9 @@ const NormalHero = () => {
         }}
       >
         <Typography variant='h6' component='h1'>
-          Hello, normal user.
+          Tell us about yourself
         </Typography>
-        <Typography>Please tell us how you'll be using the app</Typography>
+        <Typography>How will you be using this app?</Typography>
         <Button
           variant='outlined'
           onClick={handleNavigationToContractorEnrollment}

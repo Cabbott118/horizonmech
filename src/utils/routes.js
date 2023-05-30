@@ -5,7 +5,6 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import Profile from '../pages/Profile';
-import Enrollment from '../pages/Enrollment';
 import CustomerEnrollment from '../pages/CustomerEnrollment';
 import ContractorEnrollment from '../pages/ContractorEnrollment';
 import Error from '../pages/Error';
@@ -29,11 +28,6 @@ export const router = createBrowserRouter([
   {
     path: '/profile/:userId',
     element: <Profile />,
-    errorElement: <Error />,
-  },
-  {
-    path: '/enrollment',
-    element: <Enrollment />,
     errorElement: <Error />,
   },
   {

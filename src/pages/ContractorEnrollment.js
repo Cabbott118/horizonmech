@@ -1,33 +1,35 @@
 import { useState } from 'react';
 
-// Components
+// MUI
 import PageContainer from '../layouts/PageContainer';
+
+// Components
 import ContractorEnrollmentForm from '../features/enrollment/components/contractor/ContractorForm';
 
 // MUI
-import { Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
+
+// Hooks
+import useUpdateProfile from '../hooks/useUpdateProfile';
 
 const ContractorEnrollment = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [userType, setUserType] = useState('');
+  const { user, error, isLoading, updateProfile } = useUpdateProfile(
+    userType,
+    uid
+  );
 
-  //   const handleSignup = () => signup();
+  const handleProfileUpdate = () => updateProfile();
 
   return (
     <PageContainer maxWidth='xs'>
       <Typography variant='h6' component='h1'>
         Contractor
       </Typography>
+      <Button onClick={handleProfileUpdate}>Update</Button>
       <ContractorEnrollmentForm
-        emailData={email}
-        passwordData={password}
-        confirmPasswordData={confirmPassword}
-        setEmail={setEmail}
-        setPassword={setPassword}
-        setConfirmPassword={setConfirmPassword}
-        // handleSignup={handleSignup}
-        // isLoading={isLoading}
+      // handleSignup={handleProfileUpdate}
+      // isLoading={isLoading}
       />
     </PageContainer>
   );

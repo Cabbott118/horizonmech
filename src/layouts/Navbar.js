@@ -43,8 +43,6 @@ const Navbar = () => {
     setAnchorElUser(null);
   };
 
-  const isAdmin = data?.userType === UserType.ADMIN;
-
   const dropdownItems = [
     {
       name: 'Profile',
@@ -101,7 +99,7 @@ const Navbar = () => {
               }}
             >
               {isLoading ? (
-                <Skeleton sx={{ minWidth: '8rem' }} />
+                <Skeleton width='8rem' height='2rem' />
               ) : (
                 <>
                   {navLinks.map((page) => (

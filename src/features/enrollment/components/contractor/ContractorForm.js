@@ -1,19 +1,10 @@
 import { MyButton, MyTextField } from '../../../../lib/mui';
 import { Box, Typography } from '@mui/material';
 
-const ContractorForm = ({
-  emailData,
-  setEmail,
-  passwordData,
-  confirmPasswordData,
-  setConfirmPassword,
-  setPassword,
-  //   handleSignup,
-  isLoading,
-}) => {
+const ContractorForm = ({ handleProfileUpdate, isLoading }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    // handleSignup();
+    // handleProfileUpdate();
   };
   return (
     <Box component='form' onSubmit={handleSubmit}>
@@ -41,7 +32,6 @@ const ContractorForm = ({
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
       <MyButton fullWidth text='Continue' loading={isLoading} /> */}
-      <Typography variant='h6'>Placeholder for form</Typography>
     </Box>
   );
 };

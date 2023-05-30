@@ -12,10 +12,9 @@ app.use(cors({ origin: true }));
 
 app.post('/createUser', async (req, res) => {
   try {
-    const { uid, email, name } = req.body;
+    const { uid, email } = req.body;
     const newUser = {
       email,
-      name,
       userId: uid,
       authProvider: 'local',
       userType: 'normal',
@@ -45,6 +44,19 @@ app.get('/getUserDetails', async (req, res) => {
   } catch (error) {
     console.error('Error retrieving user details:', error);
     return res.status(500).send('Internal Server Error');
+  }
+});
+
+app.patch('/updateUser', async (req, res) => {
+  try {
+    const { uid, data } = req.body;
+    await admin.firestore().collection('users').doc(uid).update(data);
+    return res
+      .status(200)
+      .json({ message: 'User document updated successfully' });
+  } catch (error) {
+    console.error('Error updating user document', error);
+    return res.status(500).json({ error });
   }
 });
 

@@ -8,7 +8,7 @@ import useCloudFirestore from '../hooks/useCloudFirestore';
 import UserType from '../constants/userType';
 
 // MUI
-import { Skeleton } from '@mui/material';
+import { Container, Skeleton } from '@mui/material';
 
 // Components
 import AdminHero from '../components/AdminHero';
@@ -16,7 +16,11 @@ import NormalHero from '../components/NormalHero';
 import ContractorHero from '../components/ContractorHero';
 import CustomerHero from '../components/CustomerHero';
 
+// React Router
+import { useNavigate } from 'react-router-dom';
+
 const Home = () => {
+  const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(auth.currentUser);
   const { data, isLoading, error } = useCloudFirestore(
     'users',
@@ -26,6 +30,7 @@ const Home = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
+      if (!user) navigate('/login');
     });
 
     return () => {
@@ -34,26 +39,37 @@ const Home = () => {
   }, []);
 
   if (isLoading) {
-    return <Skeleton sx={{ height: '3rem', width: '100%' }} />;
+    return (
+      <Container
+        maxWidth='sm'
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Skeleton height='3rem' width='10rem' />
+        <Skeleton height='3rem' width='20rem' />
+        <Skeleton height='5rem' width='8rem' />
+        <Skeleton height='5rem' width='8rem' />
+      </Container>
+    );
   }
 
   if (data?.userType === UserType.NORMAL) {
-    console.log('normal');
-    return <NormalHero />;
+    return <NormalHero userId={data.uid} />;
   }
 
   if (data?.userType === UserType.CONTRACTOR) {
-    console.log('contractor');
     return <ContractorHero />;
   }
 
   if (data?.userType === UserType.CUSTOMER) {
-    console.log('customer');
     return <CustomerHero />;
   }
 
   if (data?.userType === UserType.ADMIN) {
-    console.log('admin');
     return <AdminHero />;
   }
 };
