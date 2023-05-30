@@ -4,6 +4,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
+import Profile from '../pages/Profile';
 import Enrollment from '../pages/Enrollment';
 import CustomerEnrollment from '../pages/CustomerEnrollment';
 import ContractorEnrollment from '../pages/ContractorEnrollment';
@@ -23,6 +24,11 @@ export const router = createBrowserRouter([
   {
     path: '/signup',
     element: <Signup />,
+    errorElement: <Error />,
+  },
+  {
+    path: '/profile/:userId',
+    element: <Profile />,
     errorElement: <Error />,
   },
   {

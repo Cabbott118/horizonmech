@@ -25,8 +25,8 @@ const Login = () => {
     <PageContainer maxWidth='xs'>
       <AuthenticationHeader title={pageType} />
       <LoginForm
-        emailData={email}
-        passwordData={password}
+        email={email}
+        password={password}
         setEmail={setEmail}
         setPassword={setPassword}
         handleLogin={handleLogin}

@@ -1,10 +1,10 @@
 // MUI
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { MyAlert, MyButton, MyTextField } from '../../../lib/mui';
 
 const LoginForm = ({
-  emailData,
-  passwordData,
+  email,
+  password,
   setEmail,
   setPassword,
   handleLogin,
@@ -22,7 +22,7 @@ const LoginForm = ({
         id='email'
         label='Email Address'
         name='email'
-        value={emailData}
+        value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
       <MyTextField
@@ -30,7 +30,7 @@ const LoginForm = ({
         label='Password'
         name='password'
         type='password'
-        value={passwordData}
+        value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
       {error ? (

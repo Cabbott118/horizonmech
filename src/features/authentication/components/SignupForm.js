@@ -3,12 +3,12 @@ import { Box } from '@mui/material';
 import { MyAlert, MyButton, MyTextField } from '../../../lib/mui';
 
 const SignupForm = ({
-  emailData,
+  email,
   setEmail,
-  passwordData,
-  confirmPasswordData,
-  setConfirmPassword,
+  password,
   setPassword,
+  confirmPassword,
+  setConfirmPassword,
   handleSignup,
   error,
   isLoading,
@@ -24,7 +24,7 @@ const SignupForm = ({
         id='email'
         label='Email Address'
         name='email'
-        value={emailData}
+        value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
       <MyTextField
@@ -32,7 +32,7 @@ const SignupForm = ({
         label='Password'
         name='password'
         type='password'
-        value={passwordData}
+        value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
       <MyTextField
@@ -40,7 +40,7 @@ const SignupForm = ({
         label='Confirm Password'
         name='confirmPassword'
         type='password'
-        value={confirmPasswordData}
+        value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
       {error ? (

@@ -9,27 +9,20 @@ import UserType from '../constants/userType';
 
 // MUI
 import { useTheme } from '@mui/material';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
-import Toolbar from '@mui/material/Toolbar';
-import Menu from '@mui/material/Menu';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-const settings = [
-  {
-    name: 'Home',
-    route: '/',
-  },
-  {
-    name: 'Enroll',
-    route: '/enrollment',
-  },
-];
+import {
+  AppBar,
+  Box,
+  Button,
+  Container,
+  CssBaseline,
+  Menu,
+  MenuItem,
+  Skeleton,
+  Toolbar,
+  Tooltip,
+} from '@mui/material';
+import { ArrowDropDown } from '@mui/icons-material';
 
 const Navbar = () => {
   const theme = useTheme();
@@ -51,7 +44,13 @@ const Navbar = () => {
   };
 
   const isAdmin = data?.userType === UserType.ADMIN;
-  console.log(data);
+
+  const dropdownItems = [
+    {
+      name: 'Profile',
+      route: `/profile/${data?.userId}`,
+    },
+  ];
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -61,10 +60,6 @@ const Navbar = () => {
           {
             name: 'Home',
             route: '/',
-          },
-          {
-            name: 'Enroll',
-            route: '/enrollment',
           },
         ]);
       } else {
@@ -105,62 +100,68 @@ const Navbar = () => {
                 },
               }}
             >
-              {navLinks.map((page) => (
-                <Button
-                  key={page.name}
-                  href={page.route}
-                  sx={{
-                    color: theme.palette.text.primary,
-                    textTransform: 'none',
-                  }}
-                >
-                  {page.name}
-                </Button>
-              ))}
-              {currentUser ? (
-                <Tooltip title='Open settings'>
-                  <Button
-                    onClick={handleOpenUserMenu}
-                    sx={{
-                      color: theme.palette.text.primary,
-                      textTransform: 'none',
+              {isLoading ? (
+                <Skeleton sx={{ minWidth: '8rem' }} />
+              ) : (
+                <>
+                  {navLinks.map((page) => (
+                    <Button
+                      key={page.name}
+                      href={page.route}
+                      sx={{
+                        color: theme.palette.text.primary,
+                        textTransform: 'none',
+                      }}
+                    >
+                      {page.name}
+                    </Button>
+                  ))}
+                  {currentUser ? (
+                    <Tooltip title='Open menu'>
+                      <Button
+                        onClick={handleOpenUserMenu}
+                        sx={{
+                          color: theme.palette.text.primary,
+                          textTransform: 'none',
+                        }}
+                      >
+                        User <ArrowDropDown fontSize='small' />
+                      </Button>
+                    </Tooltip>
+                  ) : null}
+                  <Menu
+                    sx={{ mt: '2.5rem' }}
+                    id='menu-appbar'
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
                     }}
-                  >
-                    Profile <ArrowDropDownIcon fontSize='small' />
-                  </Button>
-                </Tooltip>
-              ) : null}
-              <Menu
-                sx={{ mt: '45px' }}
-                id='menu-appbar'
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem
-                    key={setting.name}
-                    component='a'
-                    href={setting.route}
-                    sx={{
-                      color: theme.palette.text.primary,
-                      textTransform: 'none',
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
                     }}
-                    onClick={handleCloseUserMenu}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
                   >
-                    {setting.name}
-                  </MenuItem>
-                ))}
-              </Menu>
+                    {dropdownItems.map((dropdownItem) => (
+                      <MenuItem
+                        key={dropdownItem.name}
+                        component='a'
+                        href={dropdownItem.route}
+                        sx={{
+                          color: theme.palette.text.primary,
+                          textTransform: 'none',
+                        }}
+                        onClick={handleCloseUserMenu}
+                      >
+                        {dropdownItem.name}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </>
+              )}
             </Box>
           </Toolbar>
         </AppBar>

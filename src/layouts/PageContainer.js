@@ -8,7 +8,7 @@ const PageContainer = ({ ...rest }) => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        minHeight: '80vh',
+        // minHeight: '80vh',
       }}
       {...rest}
     ></Container>

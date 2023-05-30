@@ -12,6 +12,8 @@ import AuthenticationFooter from '../features/authentication/components/Authenti
 import useFirebaseSignup from '../features/authentication/hooks/useFirebaseSignup';
 
 const Signup = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -26,9 +28,13 @@ const Signup = () => {
     <PageContainer maxWidth='xs'>
       <AuthenticationHeader title={pageType} />
       <SignupForm
-        emailData={email}
-        passwordData={password}
-        confirmPasswordData={confirmPassword}
+        firstName={firstName}
+        lastName={lastName}
+        email={email}
+        password={password}
+        confirmPassword={confirmPassword}
+        setFirstName={setFirstName}
+        setLastName={setLastName}
         setEmail={setEmail}
         setPassword={setPassword}
         setConfirmPassword={setConfirmPassword}
