@@ -1,20 +1,75 @@
 export const workingTitle = 'Daedalus';
-export const customerRequirements = [
+export const customerEnrollmentRequirements = [
   {
-    name: 'thing 1',
+    name: 'Company Name',
   },
   {
-    name: 'thing 2',
+    name: 'Company Address',
+  },
+  {
+    name: 'Primary Contact',
+  },
+  {
+    name: 'Account Payable Contact',
+  },
+  {
+    name: 'Locations (optional)',
   },
 ];
-export const contractorRequirements = [
+
+export const customerServiceTicketRequirements = [
   {
-    name: 'thing 1',
+    name: 'Site Location',
   },
   {
-    name: 'thing 2',
+    name: 'Service Level Agreement (SLA)',
   },
   {
-    name: 'thing 3',
+    name: 'Not to Exceed (NTE)',
+  },
+  {
+    name: 'Service Type',
+  },
+  {
+    name: 'Description of issue(s)',
+  },
+];
+
+export const contractorEnrollmentRequirements = [
+  {
+    name: 'Company Name',
+  },
+  {
+    name: 'Company Address',
+  },
+  {
+    name: 'Primary Contact',
+  },
+  {
+    name: 'Dispatch Contact',
+  },
+  {
+    name: 'Services Provided',
+  },
+  {
+    name: 'License Information',
+  },
+  {
+    name: 'Proof of Insurance',
+  },
+  {
+    name: 'Serviceable Region(s)',
+  },
+  {
+    name: 'Number of Technicians',
+  },
+  {
+    name: 'Number of Service Vehicles',
+  },
+  {
+    name: 'Remittance Information',
+  },
+  {
+    name: 'Direct Deposit Information',
   },
 ];

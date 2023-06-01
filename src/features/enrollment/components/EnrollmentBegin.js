@@ -14,8 +14,8 @@ import { updateUser } from '../../../store/slices/userSlice';
 // Constants
 import {
   workingTitle,
-  customerRequirements,
-  contractorRequirements,
+  customerEnrollmentRequirements,
+  contractorEnrollmentRequirements,
 } from '../../../constants/content';
 import { CONTRACTOR_ROUTE, CUSTOMER_ROUTE } from '../../../constants/routes';
 import UserType from '../../../constants/userType';
@@ -32,11 +32,11 @@ const EnrollmentBegin = () => {
 
   useEffect(() => {
     if (data.committedToPath === UserType.CUSTOMER) {
-      setRequirements(customerRequirements);
+      setRequirements(customerEnrollmentRequirements);
       setEnrollmentRoute(CUSTOMER_ROUTE);
     }
     if (data.committedToPath === UserType.CONTRACTOR) {
-      setRequirements(contractorRequirements);
+      setRequirements(contractorEnrollmentRequirements);
       setEnrollmentRoute(CONTRACTOR_ROUTE);
     }
   }, [data]);
