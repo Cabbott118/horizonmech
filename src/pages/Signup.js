@@ -30,10 +30,14 @@ const Signup = () => {
     dispatch(signUpUser({ email, password }));
   };
 
+  const legalName = {
+    firstName,
+    lastName,
+  };
   const navigate = useNavigate();
   useEffect(() => {
     if (user?.uid) {
-      dispatch(createUser({ email, uid: user.uid }));
+      dispatch(createUser({ email, uid: user.uid, legalName }));
       navigate('/');
     }
   }, [user]);

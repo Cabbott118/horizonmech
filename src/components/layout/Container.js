@@ -3,7 +3,7 @@ const Container = ({ maxWidth, ...rest }) => (
   <MuiContainer
     maxWidth={maxWidth}
     sx={{
-      marginTop: 8,
+      // marginTop: 8,
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',

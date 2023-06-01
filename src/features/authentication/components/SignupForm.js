@@ -5,6 +5,10 @@ import Button from '../../../components/common/Button';
 import TextField from '../../../components/common/TextField';
 
 const SignupForm = ({
+  firstName,
+  setFirstName,
+  lastName,
+  setLastName,
   email,
   setEmail,
   password,
@@ -22,6 +26,22 @@ const SignupForm = ({
 
   return (
     <Box component='form' onSubmit={handleSubmit}>
+      <TextField
+        id='firstName'
+        label='First Name'
+        name='firstName'
+        type='text'
+        value={firstName}
+        onChange={(e) => setFirstName(e.target.value)}
+      />
+      <TextField
+        id='lastName'
+        label='Last Name'
+        name='lastName'
+        type='text'
+        value={lastName}
+        onChange={(e) => setLastName(e.target.value)}
+      />
       <TextField
         id='email'
         label='Email Address'

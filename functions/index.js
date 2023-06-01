@@ -12,9 +12,10 @@ app.use(cors({ origin: true }));
 
 app.post('/createUser', async (req, res) => {
   try {
-    const { uid, email } = req.body;
+    const { uid, email, legalName } = req.body;
     const newUser = {
       email,
+      legalName,
       userId: uid,
       authProvider: 'local',
       userType: 'normal',

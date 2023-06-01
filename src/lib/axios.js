@@ -1,10 +1,10 @@
 // Implementation of the "Facade Pattern"
 import axios from 'axios';
 
-import { API_URL } from '../constants/apiEndpoints';
+import { API_URL, LOCAL_API_URL } from '../constants/apiEndpoints';
 
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: LOCAL_API_URL,
 });
 
 export const get = async (path, params = {}) => {

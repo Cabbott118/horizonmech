@@ -14,9 +14,9 @@ import {
 // dispatch(createUser({ email, uid }));
 const createUser = createAsyncThunk(
   'user/createUser',
-  async ({ email, uid }) => {
+  async ({ email, uid, legalName }) => {
     try {
-      const response = await post(CREATE_USER, { email, uid });
+      const response = await post(CREATE_USER, { email, uid, legalName });
       return response.user;
     } catch (error) {
       throw new Error('Failed to create user data.');

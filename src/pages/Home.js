@@ -1,5 +1,5 @@
 // Components
-import Logout from '../features/authentication/components/Logout';
+import Hero from '../features/home/components/Hero';
 
 // Redux
 import { useSelector } from 'react-redux';
@@ -8,14 +8,16 @@ const Home = () => {
   const { data, loading, error } = useSelector((state) => state.user);
 
   if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <div>
-      <p>Welcome, {data?.email}</p>
+      <Hero />
+      <p>{data?.legalName.firstName}</p>
+      <p>{data?.email}</p>
       <p>{data?.userId}</p>
       <p>{data?.authProvider}</p>
       <p>{data?.userType}</p>
-      <Logout />
     </div>
   );
 };
