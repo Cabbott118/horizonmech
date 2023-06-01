@@ -1,5 +1,15 @@
+// Constants
+import { LOGIN_ROUTE, SIGNUP_ROUTE } from '../../../constants/routes';
+
+// React Router
+import { Link } from 'react-router-dom';
 // MUI
-import { Grid, Link } from '@mui/material';
+import { Grid } from '@mui/material';
+
+const linkStyles = {
+  color: '#124559',
+  fontSize: '.9rem',
+};
 
 const AuthenticationFooter = ({ type }) => {
   switch (type) {
@@ -7,12 +17,12 @@ const AuthenticationFooter = ({ type }) => {
       return (
         <Grid container>
           <Grid item xs>
-            <Link href='/forgot-password' variant='body2'>
+            <Link to='/forgot-password' style={linkStyles}>
               Forgot password?
             </Link>
           </Grid>
           <Grid item>
-            <Link href='/signup' variant='body2'>
+            <Link to={SIGNUP_ROUTE} style={linkStyles}>
               Don't have an account? Sign up
             </Link>
           </Grid>
@@ -23,7 +33,7 @@ const AuthenticationFooter = ({ type }) => {
       return (
         <Grid container justifyContent='flex-end'>
           <Grid item>
-            <Link href='/login' variant='body2'>
+            <Link to={LOGIN_ROUTE} style={linkStyles}>
               Already have an account? Sign in
             </Link>
           </Grid>

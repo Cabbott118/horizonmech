@@ -1,15 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // MUI
-import PageContainer from '../layouts/PageContainer';
+import Container from '../components/layout/Container';
 
-// Components
-import SignupForm from '../features/authentication/components/SignupForm';
+// Compnents
 import AuthenticationHeader from '../features/authentication/components/AuthenticationHeader';
 import AuthenticationFooter from '../features/authentication/components/AuthenticationFooter';
+import SignupForm from '../features/authentication/components/SignupForm';
 
-// Hooks
-import useFirebaseSignup from '../features/authentication/hooks/useFirebaseSignup';
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
+import { signUpUser } from '../store/slices/authSlice';
+import { createUser } from '../store/slices/userSlice';
+
+// React Router
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [firstName, setFirstName] = useState('');
@@ -18,14 +23,25 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const { user, error, isLoading, signup } = useFirebaseSignup(email, password);
+  const dispatch = useDispatch();
+  const { user, loading, error } = useSelector((state) => state.auth);
 
-  const handleSignup = () => signup();
+  const handleSignup = () => {
+    dispatch(signUpUser({ email, password }));
+  };
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user?.uid) {
+      dispatch(createUser({ email, uid: user.uid }));
+      navigate('/');
+    }
+  }, [user]);
 
   const pageType = 'Sign up';
 
   return (
-    <PageContainer maxWidth='xs'>
+    <Container maxWidth='xs'>
       <AuthenticationHeader title={pageType} />
       <SignupForm
         firstName={firstName}
@@ -40,10 +56,10 @@ const Signup = () => {
         setConfirmPassword={setConfirmPassword}
         handleSignup={handleSignup}
         error={error}
-        isLoading={isLoading}
+        isLoading={loading}
       />
       <AuthenticationFooter type={pageType} />
-    </PageContainer>
+    </Container>
   );
 };
 

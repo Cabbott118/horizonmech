@@ -1,28 +1,44 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // MUI
-import PageContainer from '../layouts/PageContainer';
+import Container from '../components/layout/Container';
 
 // Compnents
-import LoginForm from '../features/authentication/components/LoginForm';
 import AuthenticationHeader from '../features/authentication/components/AuthenticationHeader';
 import AuthenticationFooter from '../features/authentication/components/AuthenticationFooter';
+import LoginForm from '../features/authentication/components/LoginForm';
 
-// Hooks
-import useFirebaseLogin from '../features/authentication/hooks/useFirebaseLogin';
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../store/slices/authSlice';
+import { fetchUser } from '../store/slices/userSlice';
+
+// React Router
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { user, error, isLoading, login } = useFirebaseLogin(email, password);
+  const dispatch = useDispatch();
+  const { user, loading, error } = useSelector((state) => state.auth);
 
-  const handleLogin = () => login();
+  const handleLogin = () => {
+    dispatch(loginUser({ email, password }));
+  };
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user?.uid) {
+      dispatch(fetchUser(user.uid));
+      navigate('/');
+    }
+  }, [user]);
 
   const pageType = 'Login';
 
   return (
-    <PageContainer maxWidth='xs'>
+    <Container maxWidth='xs'>
       <AuthenticationHeader title={pageType} />
       <LoginForm
         email={email}
@@ -31,10 +47,10 @@ const Login = () => {
         setPassword={setPassword}
         handleLogin={handleLogin}
         error={error}
-        isLoading={isLoading}
+        isLoading={loading}
       />
       <AuthenticationFooter type={pageType} />
-    </PageContainer>
+    </Container>
   );
 };
 

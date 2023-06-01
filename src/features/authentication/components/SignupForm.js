@@ -1,6 +1,8 @@
 // MUI
 import { Box } from '@mui/material';
-import { MyAlert, MyButton, MyTextField } from '../../../lib/mui';
+import Alert from '../../../components/common/Alert';
+import Button from '../../../components/common/Button';
+import TextField from '../../../components/common/TextField';
 
 const SignupForm = ({
   email,
@@ -20,14 +22,14 @@ const SignupForm = ({
 
   return (
     <Box component='form' onSubmit={handleSubmit}>
-      <MyTextField
+      <TextField
         id='email'
         label='Email Address'
         name='email'
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <MyTextField
+      <TextField
         id='password'
         label='Password'
         name='password'
@@ -35,7 +37,7 @@ const SignupForm = ({
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <MyTextField
+      <TextField
         id='confirmPassword'
         label='Confirm Password'
         name='confirmPassword'
@@ -44,9 +46,14 @@ const SignupForm = ({
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
       {error ? (
-        <MyAlert severity='error' text='Please choose another email' />
+        <Alert severity='error' text='Please choose another email' />
       ) : null}
-      <MyButton fullWidth text='Sign Up' loading={isLoading} />
+      <Button
+        fullWidth
+        text='Sign Up'
+        variant='contained'
+        loading={isLoading}
+      />
     </Box>
   );
 };
