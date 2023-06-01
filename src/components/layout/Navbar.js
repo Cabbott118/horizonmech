@@ -18,6 +18,7 @@ import {
   SIGNUP_ROUTE,
   PROFILE_ROUTE,
 } from '../../constants/routes';
+import { workingTitle } from '../../constants/content';
 
 const Navbar = () => {
   const theme = useTheme();
@@ -52,7 +53,7 @@ const Navbar = () => {
         <Container maxWidth='md'>
           <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Link to={HOME_ROUTE} style={{ color: 'inherit' }}>
-              <Button text='Daedalus' variant='text' color='inherit' />
+              <Button text={workingTitle} variant='text' color='inherit' />
             </Link>
             <div>
               {navLinks.map((navLink, index) => (

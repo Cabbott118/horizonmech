@@ -21,6 +21,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
+import Enrollment from './pages/Enrollment';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +30,9 @@ const router = createBrowserRouter(
       <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<Signup />} />
       <Route path='/profile/:uid' element={<Profile />} />
+      <Route path='/enrollment' element={<Enrollment />} />
+      <Route path='/enrollment/customer' element={<Enrollment />} />
+      <Route path='/enrollment/contractor' element={<Enrollment />} />
     </Route>
   )
 );

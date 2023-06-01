@@ -2,18 +2,22 @@
 import { Box, Grid, Typography, useTheme } from '@mui/material';
 
 // Components
-import Button from '../../../components/common/Button';
 import Container from '../../../components/layout/Container';
 
 // Redux
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+// Constants
+import HeroView from './HeroView';
 
 const Hero = () => {
   const theme = useTheme();
   const { data, loading, error } = useSelector((state) => state.user);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  const dispatch = useDispatch();
+
+  if (loading) return <>Loading...</>;
+  if (error) return <>{error}</>;
   if (data)
     return (
       <Box sx={{ backgroundColor: theme.palette.primary.main }}>
@@ -27,45 +31,19 @@ const Hero = () => {
           >
             <Grid item>
               <Typography
-                variant='h6'
+                variant='h5'
                 component='h1'
                 color={theme.palette.primary.contrastText}
               >
                 Complete Your Profile
               </Typography>
             </Grid>
-            <Grid item>
-              <Typography
-                variant='body2'
-                component='p'
-                color={theme.palette.primary.contrastText}
-              >
-                by telling us how you'll use the app
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Grid container spacing={3}>
-                <Grid item>
-                  <Button
-                    text='Customer'
-                    variant='outlined'
-                    color='secondary'
-                  />
-                </Grid>
-                <Grid item>
-                  <Button
-                    text='Customer'
-                    variant='outlined'
-                    color='secondary'
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
+            <HeroView userType={data.userType} />
           </Grid>
         </Container>
       </Box>
     );
-  return <div>Hero nonauth</div>;
+  if (!data) return <>Hero nonauth</>;
 };
 
 export default Hero;

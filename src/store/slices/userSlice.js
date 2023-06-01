@@ -58,6 +58,8 @@ const updateUser = createAsyncThunk(
   }
 );
 
+const commitToUserType = createAction('user/commitToUserType');
+
 const clearData = createAction('user/clearData');
 
 // User slice
@@ -69,6 +71,17 @@ const userSlice = createSlice({
     error: null,
   },
   reducers: {
+    commitToUserType: (state, action) => {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          committedToPath: action.payload.committedToPath,
+        },
+        loading: false,
+        error: null,
+      };
+    },
     clearData: (state) => {
       return {
         data: null,
@@ -123,4 +136,4 @@ const userSlice = createSlice({
 
 // Export the async thunk and reducer
 export const { reducer: userReducer } = userSlice;
-export { createUser, fetchUser, updateUser, clearData };
+export { createUser, fetchUser, updateUser, clearData, commitToUserType };
