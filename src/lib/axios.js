@@ -4,7 +4,7 @@ import axios from 'axios';
 import { API_URL, LOCAL_API_URL } from '../constants/apiEndpoints';
 
 const api = axios.create({
-  baseURL: LOCAL_API_URL,
+  baseURL: API_URL,
 });
 
 export const get = async (path, params = {}) => {

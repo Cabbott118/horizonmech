@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import Alert from '../../../components/common/Alert';
 import Button from '../../../components/common/Button';
 import TextField from '../../../components/common/TextField';
+import { Grid } from '@mui/material';
 
 const SignupForm = ({
   firstName,
@@ -26,22 +27,28 @@ const SignupForm = ({
 
   return (
     <Box component='form' onSubmit={handleSubmit}>
-      <TextField
-        id='firstName'
-        label='First Name'
-        name='firstName'
-        type='text'
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-      />
-      <TextField
-        id='lastName'
-        label='Last Name'
-        name='lastName'
-        type='text'
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
-      />
+      <Grid container spacing={3}>
+        <Grid item xs={6}>
+          <TextField
+            id='firstName'
+            label='First Name'
+            name='firstName'
+            type='text'
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            id='lastName'
+            label='Last Name'
+            name='lastName'
+            type='text'
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+        </Grid>
+      </Grid>
       <TextField
         id='email'
         label='Email Address'
