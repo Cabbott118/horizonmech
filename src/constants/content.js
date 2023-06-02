@@ -1,4 +1,19 @@
+import PersonIcon from '@mui/icons-material/Person';
+import EngineeringIcon from '@mui/icons-material/Engineering';
 export const workingTitle = 'Daedalus';
+export const heroHeader = 'complete your profile';
+export const homeMainContent = [
+  {
+    icon: PersonIcon,
+    title: 'As a Customer',
+    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer viverra, felis sit amet efficitur placerat, ipsum lectus tincidunt dui, ac aliquam orci quam nec sapien.',
+  },
+  {
+    icon: EngineeringIcon,
+    title: 'As a Contractor',
+    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer viverra, felis sit amet efficitur placerat, ipsum lectus tincidunt dui, ac aliquam orci quam nec sapien.',
+  },
+];
 export const customerEnrollmentRequirements = [
   {
     name: 'Company Name',

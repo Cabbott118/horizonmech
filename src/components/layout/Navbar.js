@@ -49,7 +49,7 @@ const Navbar = () => {
 
   return (
     <Box sx={{ display: 'flex', flexGrow: 1 }}>
-      <AppBar position='static' color='transparent'>
+      <AppBar position='static' color='primary'>
         <Container maxWidth='md'>
           <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Link to={HOME_ROUTE} style={{ color: 'inherit' }}>

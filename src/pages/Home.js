@@ -1,5 +1,6 @@
 // Components
 import Hero from '../features/home/components/Hero';
+import HomeMain from '../features/home/components/HomeMain';
 
 // Redux
 import { useSelector } from 'react-redux';
@@ -7,18 +8,12 @@ import { useSelector } from 'react-redux';
 const Home = () => {
   const { data, loading, error } = useSelector((state) => state.user);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
-
+  if (error) return <>{error}</>;
   return (
-    <div>
-      <Hero />
-      <p>{data?.legalName.firstName}</p>
-      <p>{data?.email}</p>
-      <p>{data?.userId}</p>
-      <p>{data?.authProvider}</p>
-      <p>{data?.userType}</p>
-    </div>
+    <>
+      <Hero data={data} loading={loading} />
+      <HomeMain />
+    </>
   );
 };
 
