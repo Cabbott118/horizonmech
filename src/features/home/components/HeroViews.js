@@ -21,25 +21,9 @@ const HeroViews = ({ data }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
 
-  const handleCustomerClick = () => {
-    dispatch(commitToUserType({ committedToPath: UserType.CUSTOMER }));
+  const handleUserTypeClick = (userType) => {
+    dispatch(commitToUserType({ committedToPath: userType.toLowerCase() }));
   };
-
-  const handleContractorClick = () => {
-    dispatch(commitToUserType({ committedToPath: UserType.CONTRACTOR }));
-  };
-
-  const pickUpWhereYouLeftOff = (
-    <Grid item>
-      <Typography
-        variant='body2'
-        component='p'
-        color={theme.palette.primary.contrastText}
-      >
-        pick up where you left off
-      </Typography>
-    </Grid>
-  );
 
   const renderNormal = (
     <>
@@ -54,33 +38,34 @@ const HeroViews = ({ data }) => {
       </Grid>
       <Grid item>
         <Grid container spacing={3}>
-          <Grid item>
-            <Link to={ENROLLMENT_ROUTE} style={{ color: 'inherit' }}>
-              <Button
-                text='Customer'
-                variant='outlined'
-                onClick={handleCustomerClick}
-              />
-            </Link>
-          </Grid>
-          <Grid item>
-            <Link to={ENROLLMENT_ROUTE} style={{ color: 'inherit' }}>
-              <Button
-                text='Contractor'
-                variant='outlined'
-                onClick={handleContractorClick}
-              />
-            </Link>
-          </Grid>
+          {['Customer', 'Contractor'].map((userType) => (
+            <Grid item key={userType}>
+              <Link to={ENROLLMENT_ROUTE} style={{ color: 'inherit' }}>
+                <Button
+                  text={userType}
+                  variant='outlined'
+                  onClick={() => handleUserTypeClick(userType)}
+                />
+              </Link>
+            </Grid>
+          ))}
         </Grid>
       </Grid>
     </>
   );
 
-  const renderCustomerOrContractor = () => {
+  const renderIncompleteCustomerOrContractor = () => {
     return (
       <>
-        {pickUpWhereYouLeftOff}
+        <Grid item>
+          <Typography
+            variant='body2'
+            component='p'
+            color={theme.palette.primary.contrastText}
+          >
+            pick up where you left off
+          </Typography>
+        </Grid>
         <Grid item>
           <Grid container spacing={3}>
             <Grid item>
@@ -90,8 +75,8 @@ const HeroViews = ({ data }) => {
                   variant='outlined'
                   onClick={
                     data.userType === UserType.CUSTOMER
-                      ? handleCustomerClick
-                      : handleContractorClick
+                      ? () => handleUserTypeClick(UserType.CUSTOMER)
+                      : () => handleUserTypeClick(UserType.CONTRACTOR)
                   }
                 />
               </Link>
@@ -102,23 +87,48 @@ const HeroViews = ({ data }) => {
     );
   };
 
+  const renderCompleteCustomerOrContractor = () => {
+    console.log('Here');
+    return (
+      <>
+        <Typography
+          variant='h5'
+          component='h1'
+          align='center'
+          color={theme.palette.secondary.contrastText}
+        >
+          Thank you for completing your profile!
+        </Typography>
+      </>
+    );
+  };
+
   if (!data) return <LandingBanner />;
 
   return (
     <>
-      <Grid item>
-        <Typography
-          variant='h5'
-          component='h1'
-          color={theme.palette.secondary.contrastText}
-        >
-          {data.legalName.firstName}, {heroHeader}
-        </Typography>
-      </Grid>
+      {!data.isEnrolled && (
+        <Grid item>
+          <Typography
+            variant='h5'
+            component='h1'
+            align='center'
+            color={theme.palette.secondary.contrastText}
+          >
+            {data.legalName.firstName}, {heroHeader}
+          </Typography>
+        </Grid>
+      )}
+
       {data.userType === UserType.NORMAL && renderNormal}
+
       {(data.userType === UserType.CUSTOMER ||
-        data.userType === UserType.CONTRACTOR) &&
-        renderCustomerOrContractor()}
+        data.userType === UserType.CONTRACTOR) && (
+        <>
+          {!data.isEnrolled && renderIncompleteCustomerOrContractor()}
+          {data.isEnrolled && renderCompleteCustomerOrContractor()}
+        </>
+      )}
     </>
   );
 };

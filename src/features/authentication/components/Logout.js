@@ -24,7 +24,14 @@ const Logout = () => {
     navigate(HOME_ROUTE);
   };
 
-  return <Button text='Logout' color='error' onClick={handleLogout}></Button>;
+  return (
+    <Button
+      text='Logout'
+      color='error'
+      variant='contained'
+      onClick={handleLogout}
+    ></Button>
+  );
 };
 
 export default Logout;
