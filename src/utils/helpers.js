@@ -2,6 +2,8 @@ import { collection, addDoc } from 'firebase/firestore';
 
 import { db } from './firebase';
 
+import { quotes } from '../constants/content';
+
 export const sendEnrollmentEmail = async (email) => {
   try {
     await addDoc(collection(db, 'emails'), {
@@ -21,4 +23,9 @@ export const sendEnrollmentEmail = async (email) => {
   } catch (error) {
     console.error('Error triggering email:', error);
   }
+};
+
+export const quoteGenerator = () => {
+  const quote = quotes[Math.floor(Math.random() * quotes.length)];
+  return quote;
 };

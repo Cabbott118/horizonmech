@@ -5,6 +5,7 @@ import { Box, Grid, Typography, useTheme } from '@mui/material';
 import Container from '../../../components/layout/Container';
 import HeroViews from './HeroViews';
 import HeroLoader from '../loaders/HeroLoader';
+import { quoteGenerator } from '../../../utils/helpers';
 
 const Hero = ({ data, loading }) => {
   const theme = useTheme();
@@ -21,6 +22,15 @@ const Hero = ({ data, loading }) => {
             sx={{ my: '3rem' }}
           >
             {loading ? <HeroLoader /> : <HeroViews data={data} />}
+            <Grid item>
+              <Typography
+                variant='body2'
+                align='center'
+                color='primary.contrastText'
+              >
+                "{quoteGenerator()}"
+              </Typography>
+            </Grid>
           </Grid>
         </Container>
       </Box>

@@ -4,7 +4,6 @@ import React from 'react';
 // MUI
 import {
   Box,
-  CardContent,
   Container,
   Grid,
   Paper,
@@ -18,7 +17,7 @@ const HomeMain = () => {
       <Container maxWidth='md'>
         <Grid container spacing={3} alignItems='stretch'>
           {homeMainContent.map((cardContent, index) => (
-            <Grid item xs={12} sm={12 / cardContent.length} key={index}>
+            <Grid item xs={12} sm={12 / homeMainContent.length} key={index}>
               <Paper
                 sx={{
                   p: '1rem',
