@@ -57,13 +57,13 @@ const EnrollmentBegin = () => {
         direction='column'
         justifyContent='center'
         alignItems='stretch'
-        spacing={1}
+        // spacing={1}
         sx={{ my: '3rem' }}
       >
-        <Grid item>
-          <Typography variant='h6' component='h1'>
+        <Grid item sx={{ mb: '1rem' }}>
+          <Typography variant='h6' component='h1' align='center'>
             {data.legalName.firstName}, you're about to begin your{' '}
-            <i>{workingTitle}</i> journey
+            <i>{workingTitle}</i> journey!
           </Typography>
         </Grid>
         <Grid item>
