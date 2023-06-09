@@ -16,7 +16,7 @@ import { Grid, Paper, Typography } from '@mui/material';
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state.user);
+  const { data, loading } = useSelector((state) => state.user);
   const [newUserEnrollmentStatus, setNewUserEnrollmentStatus] = useState(
     !data.isEnrolled
   );
@@ -84,6 +84,7 @@ const Profile = () => {
         <Button
           text='Reset User Type'
           variant='contained'
+          disabled={loading || data.userType === UserType.NORMAL}
           onClick={handleUserTypeSwitchClick}
         />
       </Grid>
@@ -97,7 +98,7 @@ const Profile = () => {
         <Button
           text='Enrollment Status = true'
           variant='contained'
-          disabled={data.userType === 'normal'}
+          disabled={data.userType === UserType.NORMAL}
           onClick={handleUserEnrollmentSwitchClick}
         />
       </Grid>

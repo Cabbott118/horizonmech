@@ -5,98 +5,94 @@ import Button from './Button';
 import Form from './Form';
 
 // MUI
-import { Step, Stepper, StepLabel } from '@mui/material';
+import { Grid, Step, Stepper, StepLabel } from '@mui/material';
 
 const FormStepper = ({ formContent }) => {
   const [activeStep, setActiveStep] = useState(0);
   const [formState, setFormState] = useState({});
+  const steps = ['Step 1', 'Step 2', 'Step 3'];
 
-  const steps = [];
+  const handleNext = () => {
+    setActiveStep(activeStep + 1);
+  };
 
-  formContent.map((content) => {
-    if (content.type === 'typography') {
-      steps.push(content.text);
-    }
-  });
+  const handleBack = () => {
+    setActiveStep(activeStep - 1);
+  };
 
-  switch (activeStep) {
-    case 0:
-      return (
-        <>
-          <Stepper activeStep={activeStep} sx={{ mt: '3rem', width: '100%' }}>
-            {steps.map((label, index) => {
-              const stepProps = {};
-              const labelProps = {};
-              return (
-                <Step key={label} {...stepProps}>
-                  <StepLabel {...labelProps}>{label}</StepLabel>
-                </Step>
-              );
-            })}
-          </Stepper>
-          <Form
-            formState={formState}
-            setFormState={setFormState}
-            formContent={formContent}
-            stepCount={activeStep}
-          />
-          <Button
-            text='Next'
-            variant='contained'
-            fullWidth
-            onClick={() => setActiveStep(activeStep + 1)}
-          />
-        </>
-      );
-    case 1:
-      return (
-        <>
-          <Stepper activeStep={activeStep} sx={{ mt: '3rem', width: '100%' }}>
-            {steps.map((label, index) => {
-              const stepProps = {};
-              const labelProps = {};
-              return (
-                <Step key={label} {...stepProps}>
-                  <StepLabel {...labelProps}>{label}</StepLabel>
-                </Step>
-              );
-            })}
-          </Stepper>
-          <Form
-            formState={formState}
-            setFormState={setFormState}
-            formContent={formContent}
-            stepCount={activeStep}
-          />
-          <Button text='Back' onClick={() => setActiveStep(activeStep - 1)} />
-          <Button text='Next' onClick={() => setActiveStep(activeStep + 1)} />
-        </>
-      );
-    case 2:
-      return (
-        <>
-          <Stepper activeStep={activeStep} sx={{ mt: '3rem', width: '100%' }}>
-            {steps.map((label, index) => {
-              const stepProps = {};
-              const labelProps = {};
-              return (
-                <Step key={label} {...stepProps}>
-                  <StepLabel {...labelProps}>{label}</StepLabel>
-                </Step>
-              );
-            })}
-          </Stepper>
-          <Form
-            formState={formState}
-            setFormState={setFormState}
-            formContent={formContent}
-            stepCount={activeStep}
-          />
-          <Button text='Back' onClick={() => setActiveStep(activeStep - 1)} />
-          <Button text='Submit' onClick={() => console.log('Finished!')} />
-        </>
-      );
-  }
+  const handleSubmit = () => {
+    console.log(formState);
+  };
+
+  return (
+    <>
+      <Stepper activeStep={activeStep} sx={{ mt: '3rem', width: '100%' }}>
+        {steps.map((label, index) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+      <Form
+        formState={formState}
+        setFormState={setFormState}
+        formContent={formContent}
+        stepCount={activeStep}
+      />
+      <Grid container spacing={3}>
+        {activeStep === 0 ? (
+          <>
+            <Grid item xs={12}>
+              <Button
+                text='Next'
+                variant='contained'
+                fullWidth
+                onClick={handleNext}
+              />
+            </Grid>
+          </>
+        ) : activeStep === steps.length - 1 ? (
+          <>
+            <Grid item xs={6}>
+              <Button
+                text='Back'
+                variant='outlined'
+                fullWidth
+                onClick={handleBack}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <Button
+                text='Submit'
+                variant='contained'
+                fullWidth
+                onClick={handleSubmit}
+              />
+            </Grid>
+          </>
+        ) : (
+          <>
+            <Grid item xs={6}>
+              <Button
+                text='Back'
+                variant='outlined'
+                fullWidth
+                onClick={handleBack}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <Button
+                text='Next'
+                variant='contained'
+                fullWidth
+                onClick={handleNext}
+              />
+            </Grid>
+          </>
+        )}
+      </Grid>
+    </>
+  );
 };
 
 export default FormStepper;
