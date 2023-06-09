@@ -12,15 +12,18 @@ const FormStepper = ({ formContent }) => {
   const [formState, setFormState] = useState({});
   const steps = ['Step 1', 'Step 2', 'Step 3'];
 
-  const handleNext = () => {
+  const handleNext = (event) => {
+    event.preventDefault();
     setActiveStep(activeStep + 1);
   };
 
-  const handleBack = () => {
+  const handleBack = (event) => {
+    event.preventDefault();
     setActiveStep(activeStep - 1);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     console.log(formState);
   };
 
