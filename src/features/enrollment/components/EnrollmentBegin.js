@@ -57,7 +57,6 @@ const EnrollmentBegin = () => {
         direction='column'
         justifyContent='center'
         alignItems='stretch'
-        // spacing={1}
         sx={{ my: '3rem' }}
       >
         <Grid item sx={{ mb: '1rem' }}>

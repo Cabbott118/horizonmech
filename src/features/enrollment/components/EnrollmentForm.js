@@ -1,8 +1,13 @@
 // Components
-import Form from '../../../components/common/Form';
+import Container from '../../../components/layout/Container';
+import FormStepper from '../../../components/common/FormStepper';
 
 const EnrollmentForm = ({ formContent }) => {
-  return <Form formContent={formContent} />;
+  return (
+    <Container maxWidth='sm'>
+      <FormStepper formContent={formContent} />
+    </Container>
+  );
 };
 
 export default EnrollmentForm;

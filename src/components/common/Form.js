@@ -1,23 +1,18 @@
-import { useState } from 'react';
-
 // MUI
 import {
-  TextField,
+  Box,
   Checkbox,
   FormControlLabel,
-  MenuItem,
-  Box,
   Grid,
+  MenuItem,
+  TextField,
   Typography,
 } from '@mui/material';
 
-// Components
-import Container from '../layout/Container';
-import Button from '../common/Button';
+// Constants
+import states from '../../constants/states.json';
 
-const Form = ({ formContent }) => {
-  const [formState, setFormState] = useState({});
-
+const Form = ({ formState, setFormState, formContent, stepCount }) => {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState((prevState) => ({
@@ -25,100 +20,96 @@ const Form = ({ formContent }) => {
       [name]: value,
     }));
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Form submit');
     console.log(formState);
   };
 
   return (
-    <Container maxWidth='sm'>
-      <Grid
-        container
-        direction='column'
-        justifyContent='center'
-        alignItems='stretch'
-        spacing={1}
-        sx={{ my: '3rem' }}
-      >
-        <Box component='form' onSubmit={handleSubmit}>
-          {formContent.map((field) => {
-            const { type, label, name, required, options, text, variant } =
-              field;
-            let formField;
+    <Grid
+      container
+      direction='column'
+      justifyContent='center'
+      alignItems='stretch'
+      sx={{ my: '3rem' }}
+    >
+      <Box component='form' onSubmit={handleSubmit}>
+        {formContent.map((field) => {
+          const { type, label, name, required, text, variant, showOnStep } =
+            field;
+          let formField;
 
-            switch (type) {
-              case 'typography':
-                formField = (
-                  <Typography variant={variant} sx={{ my: '.5rem' }}>
-                    {text}
-                  </Typography>
-                );
-                break;
-              case 'text':
-                formField = (
-                  <TextField
-                    label={label}
-                    name={name}
-                    required={required}
-                    fullWidth
-                    value={formState[name] || ''}
-                    onChange={handleChange}
-                    sx={{ my: '.5rem' }}
-                  />
-                );
-                break;
-              case 'checkbox':
-                formField = (
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        label={label}
-                        name={name}
-                        checked={!!formState[name]}
-                        onChange={handleChange}
-                      />
-                    }
-                    label={label}
-                    sx={{ my: '.5rem' }}
-                  />
-                );
-                break;
-              case 'select':
-                formField = (
-                  <TextField
-                    label={label}
-                    name={name}
-                    select
-                    fullWidth
-                    value={formState[name] || ''}
-                    onChange={handleChange}
-                    sx={{ my: '.5rem' }}
-                  >
-                    {options.map((option) => (
-                      <MenuItem key={option} value={option}>
-                        {option}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                );
-                break;
-              default:
-                formField = null;
-            }
+          switch (type) {
+            case 'typography':
+              formField = showOnStep === stepCount && (
+                <Typography variant={variant} sx={{ my: '.5rem' }}>
+                  {text}
+                </Typography>
+              );
+              break;
+            case 'text':
+              formField = showOnStep === stepCount && (
+                <TextField
+                  label={label}
+                  name={name}
+                  required={required}
+                  margin='normal'
+                  fullWidth
+                  value={formState[name] || ''}
+                  onChange={handleChange}
+                />
+              );
+              break;
+            case 'checkbox':
+              formField = showOnStep === stepCount && (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      label={label}
+                      name={name}
+                      checked={!!formState[name]}
+                      onChange={handleChange}
+                    />
+                  }
+                  label={label}
+                  sx={{ my: '.5rem' }}
+                />
+              );
+              break;
+            case 'select':
+              formField = showOnStep === stepCount && (
+                <TextField
+                  label={label}
+                  name={name}
+                  select
+                  fullWidth
+                  margin='normal'
+                  value={formState[name] || ''}
+                  onChange={handleChange}
+                >
+                  {states.map((state) => (
+                    <MenuItem key={state.name} value={state.abbreviation}>
+                      {state.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              );
+              break;
+            default:
+              formField = null;
+          }
 
-            return (
-              formField && (
-                <Grid item key={name}>
-                  {formField}
-                </Grid>
-              )
-            );
-          })}
-          <Button fullWidth text='Submit' variant='contained' />
-        </Box>
-      </Grid>
-    </Container>
+          return (
+            formField && (
+              <Grid item key={name}>
+                {formField}
+              </Grid>
+            )
+          );
+        })}
+      </Box>
+    </Grid>
   );
 };
 
